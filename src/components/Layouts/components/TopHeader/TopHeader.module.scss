@@ -1,0 +1,113 @@
+.wrapper {
+    height: 42px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #545454;
+    font-size: 1.2rem;
+    --primary-color: #059473;
+}
+
+.grid {
+    height: 100%;
+    width: 1180px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ul {
+        height: 100%;
+
+        li {
+            display: table-cell;
+            vertical-align: middle;
+            height: 100%;
+            list-style: none;
+            padding: 0 10px;
+        }
+    }
+}
+
+.top-header-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .contact-email {
+        border-left: 1px solid #e9e9e9;
+        display: flex;
+        align-items: center;
+
+        div {
+            margin-left: 4px;
+        }
+    }
+
+    .contact-phone {
+        border-left: 1px solid #e9e9e9;
+        border-right: 1px solid #e9e9e9;
+        display: flex;
+        align-items: center;
+
+        div {
+            margin-left: 4px;
+        }
+    }
+}
+
+.top-header-end {
+    display: table;
+    justify-content: flex-end;
+    align-items: center;
+
+    .welcome {
+        border-left: 1px solid #e9e9e9;
+    }
+
+    .languages {
+        cursor: pointer;
+        border-left: 1px solid #e9e9e9;
+
+        &:hover {
+            color: var(--primary-color);
+        }
+
+        span {
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+    }
+
+    .money-unit {
+        cursor: pointer;
+        border-left: 1px solid #e9e9e9;
+        border-right: 1px solid #e9e9e9;
+
+        &:hover {
+            color: var(--primary-color);
+        }
+
+        span {
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+    }
+}
+
+.dropdown-item {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #e9e9e9 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #212121;
+    font-size: 1.2rem;
+    padding: 0 7px;
+
+    &:hover {
+        color: var(--primary-color);
+        background-color: #f8f8f8;
+    }
+}
