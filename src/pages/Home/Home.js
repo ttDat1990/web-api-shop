@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import CategoryItemS1 from '~/components/CategoryItemS1/CategoryItemS1';
 
 function Home() {
     const [products, setProducts] = useState([]);
@@ -17,13 +18,8 @@ function Home() {
     }, []);
 
     return (
-        <div className="App">
-            <h1>Product List</h1>
-            <ul>
-                {products.map((product) => (
-                    <li key={product.id}>{product.name}</li>
-                ))}
-            </ul>
+        <div className="wrapper">
+            <CategoryItemS1></CategoryItemS1>
         </div>
     );
 }
