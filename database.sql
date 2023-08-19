@@ -10,6 +10,11 @@ CREATE TABLE IF NOT EXISTS categories (
     image VARCHAR(255)
 );
 
+CREATE TABLE IF NOT EXISTS slides (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image VARCHAR(255)
+);
+
 -- Bảng products
 CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -51,6 +56,10 @@ INSERT INTO categories (name, image) VALUES
     ('Clothing', 'clothing.jpg'),
     ('Books', 'books.jpg'),
     ('Home Appliances', 'appliances.jpg');
+
+INSERT INTO slides (image) VALUES
+    ('slide1.png'),
+    ('slide2.png');
 
 -- Thêm dữ liệu vào bảng products
 INSERT INTO products (name, price, category_id, image) VALUES
