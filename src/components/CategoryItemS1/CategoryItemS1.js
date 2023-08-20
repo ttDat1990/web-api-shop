@@ -20,19 +20,17 @@ function CategoryItemS1() {
     }, []);
 
     const categoryItems = categories.map((category) => (
-        <a key={category.id} href='/' className={cx('wrapper-link')}>
+        <a key={category.id} href="/" className={cx('wrapper-link')}>
             <div className={cx('category-image')}>
                 <img src={category.image_url} alt={category.name} />
             </div>
             <div className={cx('category-title')}>{category.name}</div>
         </a>
-    ))
+    ));
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('grid')}>
-                {categoryItems}
-            </div>
+            <div className={cx('grid')}>{categoryItems}</div>
         </div>
     );
 }

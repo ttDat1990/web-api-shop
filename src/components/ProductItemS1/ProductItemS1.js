@@ -23,7 +23,7 @@ function ProductItemS1() {
 
     const productItems = products.map((product) => (
         <div key={product.id} className={cx('wrapper-card')}>
-            <a href='/' className={cx('wrapper-link')}>
+            <a href="/" className={cx('wrapper-link')}>
                 <div className={cx('product-image')}>
                     <img src={product.image_url} alt={product.name} />
                 </div>
@@ -33,8 +33,12 @@ function ProductItemS1() {
             <div className={cx('wrapper-action')}>
                 <div className={cx('product-price')}>$ {product.price}</div>
                 <div className={cx('product-button')}>
-                    <a className={cx('cart-button')} href='/'>Add to cart</a>
-                    <a className={cx('wishlist-button')} href='/'><FontAwesomeIcon icon={faHeart} /></a>
+                    <a className={cx('cart-button')} href="/">
+                        Add to cart
+                    </a>
+                    <a className={cx('wishlist-button')} href="/">
+                        <FontAwesomeIcon icon={faHeart} />
+                    </a>
                 </div>
             </div>
         </div>
@@ -42,9 +46,7 @@ function ProductItemS1() {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('grid')}>
-                {productItems}
-            </div>
+            <div className={cx('grid')}>{productItems}</div>
         </div>
     );
 }
