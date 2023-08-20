@@ -1,6 +1,10 @@
 import React from 'react';
 import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css'
+import 'react-slideshow-image/dist/styles.css';
+import classNames from 'classnames/bind';
+import styles from './Slider.module.scss'
+
+const cx = classNames.bind(styles);
 
 const spanStyle = {
     padding: '20px',
@@ -13,19 +17,18 @@ const divStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundSize: 'cover',
-    height: '400px'
 }
 const slideImages = [
     {
-        url: 'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+        url: 'https://pressmart.presslayouts.com/wp-content/uploads/2022/07/home-2-slider-1.png',
         caption: 'Slide 1'
     },
     {
-        url: 'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
+        url: 'https://pressmart.presslayouts.com/wp-content/uploads/2022/07/home-2-slider-1.png',
         caption: 'Slide 2'
     },
     {
-        url: 'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+        url: 'https://pressmart.presslayouts.com/wp-content/uploads/2022/07/home-2-slider-1.png',
         caption: 'Slide 3'
     },
 ];
@@ -35,9 +38,12 @@ function Slider() {
         <div className="slide-container">
             <Slide>
                 {slideImages.map((slideImage, index) => (
-                    <div key={index}>
-                        <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
+                    <div key={index} className={cx('wrapper')}>
+                        <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }} className={cx('slide-1')}>
                             <span style={spanStyle}>{slideImage.caption}</span>
+                        </div>
+                        <div className={cx('title-1')}>
+                            Title
                         </div>
                     </div>
                 ))}
