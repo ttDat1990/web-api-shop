@@ -32,34 +32,36 @@ const Slider = ({ apiUrl, animationDuration = 5000 }) => {
     }, [currentIndex, animationDuration, images.length]);
 
     return (
-        <div className={cx('slideshow')}>
-            {images.map((image, index) => (
-                <div
-                    key={index}
-                    className={cx(
-                        'slide',
-                        { active: index === currentIndex && index / 2 === 0 },
-                        { slide1: index / 2 !== 0 },
-                        { active1: index === currentIndex && index / 2 !== 0 },
-                    )}
-                    style={{ backgroundImage: `url(${image.image_url})` }}
-                >
+        <div className={cx('wrapper')}>
+            <div className={cx('slideshow')}>
+                {images.map((image, index) => (
                     <div
+                        key={index}
                         className={cx(
-                            { title: index === currentIndex && index / 2 === 0 },
-                            { title1: index === currentIndex && index / 2 !== 0 },
+                            'slide',
+                            { active: index === currentIndex && index / 2 === 0 },
+                            { slide1: index / 2 !== 0 },
+                            { active1: index === currentIndex && index / 2 !== 0 },
                         )}
+                        style={{ backgroundImage: `url(${image.image_url})` }}
                     >
-                        <div className={cx('title-sale')}>Summer Sale</div>
-                        <div className={cx('title-category')}>COLLECTIONS</div>
-                        <div className={cx('sale-off')}>UPTO 65% OFF</div>
-                        <div className={cx('button-wrapper')}>
-                            <button className={cx('shop-now')}>Shop Now</button>
-                            <button className={cx('read-more')}>Read More</button>
+                        <div
+                            className={cx(
+                                { title: index === currentIndex && index / 2 === 0 },
+                                { title1: index === currentIndex && index / 2 !== 0 },
+                            )}
+                        >
+                            <div className={cx('title-sale')}>Summer Sale</div>
+                            <div className={cx('title-category')}>COLLECTIONS</div>
+                            <div className={cx('sale-off')}>UPTO 65% OFF</div>
+                            <div className={cx('button-wrapper')}>
+                                <button className={cx('shop-now')}>Shop Now</button>
+                                <button className={cx('read-more')}>Read More</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };

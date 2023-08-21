@@ -1,15 +1,17 @@
-import CategoryItemS1 from '~/components/CategoryItemS1/CategoryItemS1';
-import ProductItemS1 from '~/components/ProductItemS1/ProductItemS1';
+import AllCategories from '~/components/AllCategories';
+import AllProducts from '~/components/AllProducts';
 import Slider from '~/components/Slider';
 
-const apiUrl = 'http://127.0.0.1:8000/api/slides';
+const slidesApiUrl = 'http://127.0.0.1:8000/api/slides';
+const productsApiUrl = 'http://127.0.0.1:8000/api/products';
+const categoriesApiUrl = 'http://127.0.0.1:8000/api/categories';
 
 function Home() {
     return (
         <div className="wrapper">
-            <Slider apiUrl={apiUrl} />
-            <CategoryItemS1></CategoryItemS1>
-            <ProductItemS1></ProductItemS1>
+            <Slider apiUrl={slidesApiUrl} />
+            <AllCategories apiUrl={categoriesApiUrl} />
+            <AllProducts apiUrl={productsApiUrl} />
         </div>
     );
 }
