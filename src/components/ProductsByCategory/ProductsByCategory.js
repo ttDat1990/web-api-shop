@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './ProductsByCategory.module.scss';
 import classNames from 'classnames/bind';
 import ProductItemS1 from '~/components/ProductItemS1';
+import { getAllProductsByCategory } from '~/components/ApiUrl';
 
 const cx = classNames.bind(styles);
 
@@ -13,7 +14,7 @@ function ProductsByCategory() {
 
     useEffect(() => {
         axios
-            .get(`http://127.0.0.1:8000/api/products/category/${categoryId}`)
+            .get(`${getAllProductsByCategory}${categoryId}`)
             .then((response) => {
                 setProducts(response.data);
             })
@@ -28,7 +29,8 @@ function ProductsByCategory() {
             imageUrl={product.image_url}
             name={product.name}
             price={product.price}
-            categoryId={product.category_id}
+            categoryName={product.category_name}
+            productId={product.id}
         />
     ));
 

@@ -1,11 +1,27 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './MainHeader.module.scss';
 import Dropdown from '~/components/Dropdown/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-function MainHeader() {
+function MainHeader({ apiUrl }) {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(apiUrl)
+            .then((response) => {
+                setCategories(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }, [apiUrl]);
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('grid')}>
@@ -13,7 +29,7 @@ function MainHeader() {
                     placement={'bottom'}
                     content={
                         <div className={cx('dropdown')}>
-                            <div className={cx('dropdown-item')}>
+                            {/* <div className={cx('dropdown-item')}>
                                 <div>Men's Clothing</div>
                                 <span>
                                     <FontAwesomeIcon icon={faChevronRight} />
@@ -24,9 +40,13 @@ function MainHeader() {
                                 <span>
                                     <FontAwesomeIcon icon={faChevronRight} />
                                 </span>
-                            </div>
+                            </div> */}
 
-                            <div className={cx('dropdown-item')}>Accessories</div>
+                            {categories.map((category) => (
+                                <Link to={`/category/${category.id}`}>
+                                    <div className={cx('dropdown-item')}>{category.name}</div>
+                                </Link>
+                            ))}
                         </div>
                     }
                 >
@@ -38,9 +58,9 @@ function MainHeader() {
                     </li>
                 </Dropdown>
                 <div className={cx('nav-item-container')}>
-                    <a href="/" className={cx('nav-item')}>
+                    <Link to={'/'} className={cx('nav-item')}>
                         Home
-                    </a>
+                    </Link>
                     <Dropdown
                         offset={[177, 0]}
                         tooltipWidth="1180px"
@@ -117,9 +137,9 @@ function MainHeader() {
                             </span>
                         </li>
                     </Dropdown>
-                    <a href="/" className={cx('nav-item')}>
-                        Shipping
-                    </a>
+                    <Link to={'/products'} className={cx('nav-item')}>
+                        All Products
+                    </Link>
                     <a href="/" className={cx('nav-item')}>
                         Contact Us
                     </a>

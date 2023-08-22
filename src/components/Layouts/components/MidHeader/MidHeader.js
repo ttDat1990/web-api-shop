@@ -21,7 +21,9 @@ function MidHeader() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid')}>
-                <Button className={cx('logo')}>PressMart.</Button>
+                <Button to={'/'} className={cx('logo')}>
+                    PressMart.
+                </Button>
                 <div className={cx('search')}>
                     {/* <div className={cx('search-input')}> */}
                     <input type="text" placeholder="Search for Products, categories, sku...." />

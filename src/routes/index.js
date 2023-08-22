@@ -3,6 +3,7 @@ import Cart from '~/pages/Cart';
 import Products from '~/pages/Products';
 import ProductDetails from '~/pages/ProductDetails';
 import ProductsByCategory from '~/components/ProductsByCategory';
+import Admin from '~/pages/Admin';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -10,8 +11,9 @@ const publicRoutes = [
     { path: '/products', component: Products },
     { path: '/product/:productId', component: ProductDetails },
     { path: '/category/:categoryId', component: ProductsByCategory },
+    { path: '/products/:productId', component: ProductDetails },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [{ path: '/admin', component: Admin, layout: null }];
 
 export { privateRoutes, publicRoutes };

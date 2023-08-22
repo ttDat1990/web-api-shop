@@ -26,7 +26,8 @@ function AllProducts({ apiUrl }) {
             imageUrl={product.image_url}
             name={product.name}
             price={product.price}
-            categoryId={product.category_id}
+            categoryName={product.category_name}
+            productId={product.id}
         />
     ));
 

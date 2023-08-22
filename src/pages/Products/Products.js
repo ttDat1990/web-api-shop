@@ -1,5 +1,12 @@
+import AllProducts from '~/components/AllProducts';
+import { getAllProducts } from '~/components/ApiUrl';
+
 function Products() {
-    return <h2>Products page</h2>;
+    return (
+        <div>
+            <AllProducts apiUrl={getAllProducts} />
+        </div>
+    );
 }
 
 export default Products;
