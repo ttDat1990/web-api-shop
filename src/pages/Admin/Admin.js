@@ -1,9 +1,9 @@
-import AdminProductsList from '~/components/AdminProductsList';
+import AdminProductsAdd from '~/components/AdminProductsAdd/AdminProductsAdd';
 
 function Admin() {
     return (
         <div>
-            <AdminProductsList />
+            <AdminProductsAdd />
         </div>
     );
 }

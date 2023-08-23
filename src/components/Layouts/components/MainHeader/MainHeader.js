@@ -6,21 +6,22 @@ import Dropdown from '~/components/Dropdown/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { getAllCategories } from '~/components/ApiUrl';
 
 const cx = classNames.bind(styles);
-function MainHeader({ apiUrl }) {
+function MainHeader() {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         axios
-            .get(apiUrl)
+            .get(`${getAllCategories}`)
             .then((response) => {
                 setCategories(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
-    }, [apiUrl]);
+    }, []);
 
     return (
         <header className={cx('wrapper')}>
@@ -43,7 +44,7 @@ function MainHeader({ apiUrl }) {
                             </div> */}
 
                             {categories.map((category) => (
-                                <Link to={`/category/${category.id}`}>
+                                <Link key={category.id} to={`/category/${category.id}`}>
                                     <div className={cx('dropdown-item')}>{category.name}</div>
                                 </Link>
                             ))}

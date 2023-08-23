@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function ProductItemS1({ productId, key, imageUrl, name, categoryName, price }) {
+function ProductItemS1({ productId, imageUrl, name, categoryName, price }) {
     return (
-        <div key={key} className={cx('wrapper-card')}>
+        <div className={cx('wrapper-card')}>
             <Link to={`/products/${productId}`} href="/" className={cx('wrapper-link')}>
                 <div className={cx('product-image')}>
                     <img src={imageUrl} alt={name} />

@@ -1,0 +1,112 @@
+.container {
+    position: relative;
+    left: 30%;
+    height: 450px;
+    width: 350px;
+    border: 1px solid #e9e9e9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+
+    button {
+        padding: 0 10px;
+        font-size: 1.4rem;
+        height: 35px;
+        color: var(--white-color);
+        cursor: pointer;
+        border: 1px solid #e9e9e9;
+        background-color: var(--primary-color);
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+            background-color: var(--primary-hover-color);
+        }
+    }
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.name,
+.price {
+    width: 100%;
+    margin-bottom: 15px;
+
+    label {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        font-size: 1.4rem;
+        outline: none;
+        border: 1px solid #e9e9e9;
+        height: 35px;
+        padding-left: 1rem;
+    }
+}
+
+.category {
+    margin-bottom: 15px;
+
+    label {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
+
+    select {
+        font-size: 1.4rem;
+        border: 1px solid #e9e9e9;
+        height: 35px;
+        padding-left: 3px;
+        outline: none;
+    }
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    div {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
+}
+
+.image input[type="file"] {
+    display: none;
+}
+
+.image label {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 1.4rem;
+    height: 35px;
+    color: var(--primary-color);
+    cursor: pointer;
+    border: 1px solid #e9e9e9;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.image label:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
