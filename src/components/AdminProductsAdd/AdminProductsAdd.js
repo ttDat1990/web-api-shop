@@ -12,7 +12,10 @@ const AdminProductsAdd = () => {
     const [category_id, setCategoryId] = useState('');
     const [image, setImage] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [showToast, setShowToast] = useState(false);
+    const [fadeState, setFadeState] = useState('none');
 
+    //get categories list
     useEffect(() => {
         axios
             .get(`${getAllCategories}`)
@@ -23,6 +26,8 @@ const AdminProductsAdd = () => {
                 console.error('Error fetching data:', error);
             });
     }, []);
+
+    //send formdata and receive response
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -38,8 +43,18 @@ const AdminProductsAdd = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            // show toast
+            if (response.data.message === 'Product created successfully') {
+                setShowToast(true);
+                setFadeState('fade-in');
+
+                setTimeout(() => {
+                    setFadeState('fade-out');
+                }, 5000);
+            }
             console.log(response.data);
-            // Reset form fields after successful submission
+
+            //reset form
             setName('');
             setPrice('');
             setCategoryId('');
@@ -48,6 +63,22 @@ const AdminProductsAdd = () => {
             console.error(error);
         }
     };
+
+    //animation for hide/show toast
+    useEffect(() => {
+        let fadeOutTimer;
+
+        if (fadeState === 'fade-out') {
+            fadeOutTimer = setTimeout(() => {
+                setShowToast(false);
+                setFadeState('none');
+            }, 700);
+        }
+
+        return () => {
+            clearTimeout(fadeOutTimer);
+        };
+    }, [fadeState]);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -94,6 +125,16 @@ const AdminProductsAdd = () => {
 
                 <button type="submit">Submit</button>
             </div>
+            {showToast && (
+                <div
+                    className={cx('toast', {
+                        'fade-in': showToast && fadeState === 'fade-in',
+                        'fade-out': fadeState === 'fade-out',
+                    })}
+                >
+                    Product created successfully!
+                </div>
+            )}
         </form>
     );
 };

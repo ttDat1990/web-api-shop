@@ -1,0 +1,21 @@
+.sidebar-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid white;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-item.open {
+    transform: translateY(100%);
+}
+
+.item-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-content {
+    background-color: #444;
+    padding: 10px;
+}

@@ -14,6 +14,6 @@ const publicRoutes = [
     { path: '/products/:productId', component: ProductDetails },
 ];
 
-const privateRoutes = [{ path: '/admin', component: Admin, layout: null }];
+const privateRoutes = [{ path: '/admin', component: Admin }];
 
 export { privateRoutes, publicRoutes };
