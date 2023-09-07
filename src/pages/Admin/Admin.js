@@ -1,11 +1,5 @@
-import AdminProductsAdd from '~/components/AdminProductsAdd/AdminProductsAdd';
-
 function Admin() {
-    return (
-        <div>
-            <AdminProductsAdd />
-        </div>
-    );
+    return <div>Admin dashboard</div>;
 }
 
 export default Admin;

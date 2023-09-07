@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import classNames from 'classnames/bind';
-import { addProduct, getAllCategories } from '~/components/ApiUrl';
+import { adminAddProduct, adminGetAllCategories } from '~/components/ApiUrl';
 import styles from './AdminProductsAdd.module.scss';
 
 const cx = classNames.bind(styles);
 
 const AdminProductsAdd = () => {
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category_id, setCategoryId] = useState('');
     const [image, setImage] = useState(null);
@@ -18,7 +19,7 @@ const AdminProductsAdd = () => {
     //get categories list
     useEffect(() => {
         axios
-            .get(`${getAllCategories}`)
+            .get(`${adminGetAllCategories}`)
             .then((response) => {
                 setCategories(response.data);
             })
@@ -33,12 +34,13 @@ const AdminProductsAdd = () => {
 
         const formData = new FormData();
         formData.append('name', name);
+        formData.append('description', description);
         formData.append('price', price);
         formData.append('category_id', category_id);
         formData.append('image', image);
 
         try {
-            const response = await axios.post(`${addProduct}`, formData, {
+            const response = await axios.post(`${adminAddProduct}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -92,6 +94,15 @@ const AdminProductsAdd = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Name of Product"
+                    />
+                </div>
+                <div className={cx('description')}>
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="Description of Product"
                     />
                 </div>
 

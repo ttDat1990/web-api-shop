@@ -50,6 +50,14 @@ CREATE TABLE IF NOT EXISTS orderdetail (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
+INSERT INTO user_accounts (id, username, password)
+VALUES (1, 'user1', 'user_password1'),
+       (2, 'user2', 'user_password2');
+
+
+INSERT INTO admin_accounts (id, username, password)
+VALUES (1, 'admin', '12345');
+
 -- Thêm dữ liệu vào bảng categories
 INSERT INTO categories (name, image) VALUES
     ('Electronics', 'electronics.jpg'),
@@ -103,3 +111,5 @@ INSERT INTO orderdetail (order_id, product_id, quantity) VALUES
 
 select * from products;
 select * from categories;
+select * from admin_accounts;
+select * from user_accounts;

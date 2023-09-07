@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './MidHeader.module.scss';
 import classNames from 'classnames/bind';
 import Dropdown from '~/components/Dropdown';
@@ -6,18 +6,15 @@ import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faOpencart } from '@fortawesome/free-brands-svg-icons';
-import { faChevronDown, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import AnimatedModal from '~/components/AnimatedModal/AnimatedModal';
+import { faChevronDown, faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import LoginModal from '~/components/LoginModal';
+import { useAuth } from '~/components/AuthContext/AuthContext';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function MidHeader() {
-    const [showAccountModal, setShowAccountModal] = useState(false); // Sử dụng useState
-
-    const handleAccountClick = () => {
-        setShowAccountModal(true);
-        console.log(123);
-    };
+    const { isLoggedIn, logout } = useAuth();
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid')}>
@@ -85,51 +82,37 @@ function MidHeader() {
                     </Button>
                 </div>
                 <div className={cx('menu')}>
-                    <div className={cx('menu-account')} onClick={handleAccountClick}>
-                        <FontAwesomeIcon icon={faUser} />
-                        <span onClick={handleAccountClick}>My Account</span>
-                    </div>
+                    {/* <LoginModal
+                        triggerButton={
+                            <div className={cx('menu-account')}>
+                                <FontAwesomeIcon icon={faUser} />
+                                <span>Login</span>
+                            </div>
+                        }
+                    ></LoginModal> */}
+                    {isLoggedIn ? (
+                        <div className={cx('menu-account')} onClick={logout}>
+                            <FontAwesomeIcon icon={faSignOutAlt} />
+                            <span>Logout</span>
+                        </div>
+                    ) : (
+                        <LoginModal
+                            triggerButton={
+                                <div className={cx('menu-account')}>
+                                    <FontAwesomeIcon icon={faUser} />
+                                    <span>Login</span>
+                                </div>
+                            }
+                        />
+                    )}
                     <a href="/" className={cx('menu-wishlist')}>
                         <FontAwesomeIcon icon={faHeart} />
                         <span>Wishlist</span>
                     </a>
-                    <a href="/" className={cx('menu-cart')}>
+                    <Link to={'/user/cart'} className={cx('menu-cart')}>
                         <FontAwesomeIcon icon={faOpencart} />
                         <span>Cart</span>
-                    </a>
-                    <AnimatedModal
-                        isOpen={showAccountModal}
-                        onRequestClose={() => setShowAccountModal(false)}
-                        style={{
-                            width: 695,
-                            height: 272,
-                            backgroundColor: 'white',
-                        }}
-                        className={cx('modal-content')}
-                        overlayClassName={cx('modal-overlay')}
-                        content={
-                            <div className={cx('login-modal-container')}>
-                                <div className={cx('modal-title')}>
-                                    <h4>Login</h4>
-                                    <span>Get access to your</span>
-                                    <span>Orders, Wishlist and</span>
-                                    <span>Recommendations.</span>
-                                </div>
-                                <div className={cx('modal-input')}>
-                                    <input type="text" placeholder="Enter Username/Email address" />
-                                    <input type="password" placeholder="Enter Password" />
-                                    <div className={cx('login-tip')}>
-                                        <div>
-                                            <input type="checkbox" name="remember" />
-                                            <label for="remember"> Remember me</label>
-                                        </div>
-                                        <a href="/">Lost your password?</a>
-                                    </div>
-                                    <button>Log in</button>
-                                </div>
-                            </div>
-                        }
-                    />
+                    </Link>
                 </div>
             </div>
         </div>

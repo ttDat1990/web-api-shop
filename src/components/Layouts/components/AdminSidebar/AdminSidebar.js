@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './AdminSidebar.module.scss';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +15,9 @@ const AdminSidebar = () => {
     return (
         <div className={cx('sidebar')}>
             <div className={cx('sidebar-item')}>
-                <div className={cx('item-title')}>Home</div>
+                <Link to={'/admin/home'} className={cx('item-title')}>
+                    Home
+                </Link>
             </div>
             <div className={cx('sidebar-item')}>
                 <div className={cx('item-title')} onClick={() => toggleDropdown(1)}>
@@ -22,8 +25,8 @@ const AdminSidebar = () => {
                 </div>
                 {openDropdownIndex === 1 && (
                     <div className={cx('dropdown-content')}>
-                        <a href="/">Add new Product</a>
-                        <a href="/">List of Products</a>
+                        <Link to={'/admin/addProduct'}>Add new Product</Link>
+                        <Link to={'/admin/listProduct'}>List of Products</Link>
                     </div>
                 )}
             </div>
