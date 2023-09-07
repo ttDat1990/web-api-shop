@@ -57,6 +57,7 @@ const LoginModal = ({ triggerButton }) => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     placeholder="Enter Username/Email address"
+                                    autoComplete="username"
                                 />
                                 <input
                                     type="password"
@@ -64,6 +65,7 @@ const LoginModal = ({ triggerButton }) => {
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                     placeholder="Enter Password"
+                                    autoComplete="current-password"
                                 />
                                 <div className={cx('login-tip')}>
                                     <div>

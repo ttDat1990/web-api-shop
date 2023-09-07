@@ -5,7 +5,6 @@ import { useAuth } from '~/components/AuthContext/AuthContext';
 const RequireAuth = ({ children, requiredRole }) => {
     const { isLoggedIn, role } = useAuth();
     const navigate = useNavigate();
-    console.log(isLoggedIn, role);
 
     useEffect(() => {
         // Kiểm tra xem người dùng đã đăng nhập hay chưa

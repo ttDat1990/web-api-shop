@@ -28,6 +28,7 @@ function AdminLogin() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="Enter Username/Email address"
+                autoComplete="username"
             />
             <input
                 type="password"
@@ -35,6 +36,7 @@ function AdminLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Enter Password"
+                autoComplete="current-password"
             />
             <div>
                 <div>
