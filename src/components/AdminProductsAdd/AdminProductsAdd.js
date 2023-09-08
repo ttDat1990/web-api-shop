@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import classNames from 'classnames/bind';
 import { adminAddProduct, adminGetAllCategories } from '~/components/ApiUrl';
@@ -7,16 +7,17 @@ import styles from './AdminProductsAdd.module.scss';
 const cx = classNames.bind(styles);
 
 const AdminProductsAdd = () => {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [category_id, setCategoryId] = useState('');
-    const [image, setImage] = useState(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        price: '',
+        category_id: '',
+        image: null,
+    });
     const [categories, setCategories] = useState([]);
     const [showToast, setShowToast] = useState(false);
     const [fadeState, setFadeState] = useState('none');
 
-    //get categories list
     useEffect(() => {
         axios
             .get(`${adminGetAllCategories}`)
@@ -28,59 +29,61 @@ const AdminProductsAdd = () => {
             });
     }, []);
 
-    //send formdata and receive response
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleImageChange = (e) => {
+        setFormData({ ...formData, image: e.target.files[0] });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('price', price);
-        formData.append('category_id', category_id);
-        formData.append('image', image);
+        const form = new FormData();
+        form.append('name', formData.name);
+        form.append('description', formData.description);
+        form.append('price', formData.price);
+        form.append('category_id', formData.category_id);
+        form.append('image', formData.image);
 
         try {
-            const response = await axios.post(`${adminAddProduct}`, formData, {
+            const response = await axios.post(`${adminAddProduct}`, form, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            // show toast
+
             if (response.data.message === 'Product created successfully') {
                 setShowToast(true);
                 setFadeState('fade-in');
 
                 setTimeout(() => {
-                    setFadeState('fade-out');
-                }, 5000);
+                    setShowToast(false);
+                    setFadeState('none');
+                }, 2000);
             }
-            console.log(response.data);
 
-            //reset form
-            setName('');
-            setPrice('');
-            setCategoryId('');
-            setImage(null);
+            setFormData({
+                name: '',
+                description: '',
+                price: '',
+                category_id: '',
+                image: null,
+            });
         } catch (error) {
             console.error(error);
         }
     };
 
-    //animation for hide/show toast
-    useEffect(() => {
-        let fadeOutTimer;
-
-        if (fadeState === 'fade-out') {
-            fadeOutTimer = setTimeout(() => {
-                setShowToast(false);
-                setFadeState('none');
-            }, 700);
-        }
-
-        return () => {
-            clearTimeout(fadeOutTimer);
-        };
-    }, [fadeState]);
+    const categoryOptions = useMemo(() => {
+        return categories.map((category) => (
+            <option key={category.id} value={category.id}>
+                {category.name}
+            </option>
+        ));
+    }, [categories]);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -91,8 +94,9 @@ const AdminProductsAdd = () => {
                     <input
                         type="text"
                         id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
                         placeholder="Name of Product"
                     />
                 </div>
@@ -100,8 +104,9 @@ const AdminProductsAdd = () => {
                     <label htmlFor="description">Description</label>
                     <textarea
                         id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        name="description"
+                        value={formData.description}
+                        onChange={handleInputChange}
                         placeholder="Description of Product"
                     />
                 </div>
@@ -111,27 +116,24 @@ const AdminProductsAdd = () => {
                     <input
                         type="number"
                         id="price"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        name="price"
+                        value={formData.price}
+                        onChange={handleInputChange}
                         placeholder="Price of Product"
                     />
                 </div>
                 <div className={cx('category')}>
                     <label htmlFor="category">Category</label>
-                    <select id="category" value={category_id} onChange={(e) => setCategoryId(e.target.value)}>
+                    <select id="category" name="category_id" value={formData.category_id} onChange={handleInputChange}>
                         <option value="">Select a category</option>
-                        {categories.map((category) => (
-                            <option key={category.id} value={`${category.id}`}>
-                                {category.name}
-                            </option>
-                        ))}
+                        {categoryOptions}
                     </select>
                 </div>
 
                 <div className={cx('image')}>
                     <div>Image</div>
                     <label htmlFor="image">Choose Product Image</label>
-                    <input type="file" accept="image/*" id="image" onChange={(e) => setImage(e.target.files[0])} />
+                    <input type="file" accept="image/*" id="image" name="image" onChange={handleImageChange} />
                 </div>
 
                 <button type="submit">Submit</button>
