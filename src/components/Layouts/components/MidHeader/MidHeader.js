@@ -1,20 +1,54 @@
 import React from 'react';
+import { useState } from 'react';
 import styles from './MidHeader.module.scss';
 import classNames from 'classnames/bind';
-import Dropdown from '~/components/Dropdown';
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faOpencart } from '@fortawesome/free-brands-svg-icons';
-import { faChevronDown, faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import LoginModal from '~/components/LoginModal';
+import { faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '~/components/AuthContext/AuthContext';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function MidHeader() {
-    const { isLoggedIn, logout } = useAuth();
+    const [showModal, setShowModal] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const { isLoggedIn, login, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const toggleModal = () => {
+        setShowModal(!showModal);
+    };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            const loginSuccessful = await login(email, password, 'user');
+
+            if (!loginSuccessful) {
+                setError('Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập.');
+            } else {
+                setShowModal(false);
+            }
+        } catch (err) {
+            // Xử lý lỗi đăng nhập
+        }
+    };
+
+    const handleCartClick = () => {
+        if (isLoggedIn) {
+            navigate('/user/cart');
+        } else {
+            toggleModal();
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid')}>
@@ -22,97 +56,75 @@ function MidHeader() {
                     PressMart.
                 </Button>
                 <div className={cx('search')}>
-                    {/* <div className={cx('search-input')}> */}
                     <input type="text" placeholder="Search for Products, categories, sku...." />
-                    {/* </div> */}
-                    <Dropdown
-                        trigger="click"
-                        offset={[29, 0]}
-                        content={
-                            <div className={cx('dropdown')}>
-                                <a href="/" className={cx('dropdown-item', 'title-dropdown')}>
-                                    All Categories
-                                </a>
-                                <a href="/" className={cx('dropdown-item', 'title-dropdown')}>
-                                    Accessories
-                                </a>
-                                <a href="/" className={cx('dropdown-item')}>
-                                    {' '}
-                                    Belts
-                                </a>
-                                <a href="/" className={cx('dropdown-item')}>
-                                    {' '}
-                                    Caps and Hats
-                                </a>
-                                <a href="/" className={cx('dropdown-item')}>
-                                    {' '}
-                                    Sunglasses
-                                </a>
-                                <a href="/" className={cx('dropdown-item')}>
-                                    {' '}
-                                    Wallets
-                                </a>
-                                <a href="/" className={cx('dropdown-item', 'title-dropdown')}>
-                                    Bags and Backpacks
-                                </a>
-                                <a href="/" className={cx('dropdown-item')}>
-                                    {' '}
-                                    Backpacks
-                                </a>
-                                <a href="/" className={cx('dropdown-item')}>
-                                    {' '}
-                                    Hand Bags
-                                </a>
-                                <a href="/" className={cx('dropdown-item')}>
-                                    {' '}
-                                    Laptop Bags
-                                </a>
-                            </div>
-                        }
-                    >
-                        <div className={cx('search-dropdown')}>
-                            All Categories
-                            <span>
-                                <FontAwesomeIcon icon={faChevronDown} />
-                            </span>
-                        </div>
-                    </Dropdown>
                     <Button className={cx('search-button')}>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </Button>
                 </div>
                 <div className={cx('menu')}>
-                    {/* <LoginModal
-                        triggerButton={
-                            <div className={cx('menu-account')}>
-                                <FontAwesomeIcon icon={faUser} />
-                                <span>Login</span>
-                            </div>
-                        }
-                    ></LoginModal> */}
                     {isLoggedIn ? (
                         <div className={cx('menu-account')} onClick={logout}>
                             <FontAwesomeIcon icon={faSignOutAlt} />
                             <span>Logout</span>
                         </div>
                     ) : (
-                        <LoginModal
-                            triggerButton={
-                                <div className={cx('menu-account')}>
-                                    <FontAwesomeIcon icon={faUser} />
-                                    <span>Login</span>
+                        <div onClick={isLoggedIn ? logout : toggleModal} className={cx('menu-account')}>
+                            <FontAwesomeIcon icon={faUser} />
+                            <span>Login</span>
+                        </div>
+                    )}
+                    {showModal && (
+                        <div className={cx('modal')}>
+                            <div className={cx('modal-content')}>
+                                <span className={cx('close')} onClick={toggleModal}>
+                                    &times;
+                                </span>
+                                <div className={cx('login-modal-container')}>
+                                    <div className={cx('modal-title')}>
+                                        <h4>Login</h4>
+                                        <span>Get access to your</span>
+                                        <span>Orders, Wishlist and</span>
+                                        <span>Recommendations.</span>
+                                    </div>
+                                    <form onSubmit={handleLogin} className={cx('modal-input')}>
+                                        <input
+                                            type="text"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                            placeholder="Enter Username/Email address"
+                                            autoComplete="username"
+                                        />
+                                        <input
+                                            type="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required
+                                            placeholder="Enter Password"
+                                            autoComplete="current-password"
+                                        />
+                                        <div className={cx('login-tip')}>
+                                            <div>
+                                                <input type="checkbox" name="remember" />
+                                                <label htmlFor="remember"> Remember me</label>
+                                            </div>
+                                            <a href="/">Lost your password?</a>
+                                        </div>
+                                        {error && <span className={cx('error')}>{error}</span>}
+                                        <button type="submit">Log in</button>
+                                    </form>
                                 </div>
-                            }
-                        />
+                            </div>
+                        </div>
                     )}
                     <a href="/" className={cx('menu-wishlist')}>
                         <FontAwesomeIcon icon={faHeart} />
                         <span>Wishlist</span>
                     </a>
-                    <Link to={'/user/cart'} className={cx('menu-cart')}>
+                    <div onClick={handleCartClick} className={cx('menu-cart')}>
                         <FontAwesomeIcon icon={faOpencart} />
                         <span>Cart</span>
-                    </Link>
+                    </div>
                 </div>
             </div>
         </div>

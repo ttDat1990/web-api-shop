@@ -16,7 +16,7 @@ const publicRoutes = [
     { path: '/category/:categoryId', component: ProductsByCategory },
     { path: '/products/:productId', component: ProductDetails },
     { path: '/admin/login', component: AdminLogin, layout: null },
-    { path: '/user/login', component: UserLogin, layout: null },
+    { path: '/user/login', component: UserLogin },
     { path: '/forbidden', component: Forbidden, layout: null },
 ];
 

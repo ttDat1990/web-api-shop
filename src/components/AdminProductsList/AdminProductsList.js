@@ -17,23 +17,14 @@ const AdminProductsList = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchCategories = useCallback(async () => {
+    const fetchData = useCallback(async () => {
+        setLoading(true);
         try {
-            const response = await axios.get(`${getAllCategories}`);
-            setCategories(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    }, []);
-
-    const handleSearchName = useCallback(async () => {
-        try {
-            setLoading(true);
             const params = {
                 page: currentPage,
                 perPage: productsPerPage,
                 name: searchName.trim() !== '' ? searchName : undefined,
-                category: category !== '' ? category : undefined, // Thêm category vào các tham số tìm kiếm
+                category: category !== '' ? category : undefined,
             };
             const response = await axios.get(`${getAllProductsPaginate}`, { params });
             if (response.data.message) {
@@ -44,11 +35,11 @@ const AdminProductsList = () => {
                 setProducts(response.data.data);
                 setTotalPages(Math.ceil(response.data.total / productsPerPage));
             }
-            setLoading(false);
         } catch (error) {
             console.error(error);
-            setLoading(false);
             // Handle the error and provide user feedback if needed.
+        } finally {
+            setLoading(false);
         }
     }, [productsPerPage, searchName, currentPage, category]);
 
@@ -56,12 +47,45 @@ const AdminProductsList = () => {
         try {
             setLoading(true);
             await axios.delete(`${adminDeleteProducts}${productId}`);
-            handleSearchName();
+            // Remove the deleted product from the list without making a new request
+            setProducts(products.filter((product) => product.id !== productId));
         } catch (error) {
             console.error(error);
-            setLoading(false);
             // Handle the error and provide user feedback if needed.
+        } finally {
+            setLoading(false);
         }
+    };
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
+    useEffect(() => {
+        async function fetchCategories() {
+            try {
+                const response = await axios.get(`${getAllCategories}`);
+                setCategories(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchCategories();
+    }, []);
+
+    const handleSearchNameChange = (e) => {
+        setSearchName(e.target.value);
+        setCurrentPage(1);
+        fetchData(); // Gọi lại fetchData khi có thay đổi tìm kiếm
+    };
+
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value);
+        setCurrentPage(1);
     };
 
     const handleUpdateProduct = async (productId) => {
@@ -73,30 +97,6 @@ const AdminProductsList = () => {
             // Handle the error and provide user feedback if needed.
         }
     };
-
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
-    };
-
-    const handleSearchNameChange = (e) => {
-        setSearchName(e.target.value);
-        setCurrentPage(1);
-        handleSearchName();
-    };
-
-    const handleCategoryChange = (e) => {
-        setCategory(e.target.value);
-        setCurrentPage(1);
-    };
-
-    useEffect(() => {
-        handleSearchName(1);
-    }, [category, handleSearchName]);
-
-    useEffect(() => {
-        fetchCategories();
-        handleSearchName(currentPage);
-    }, [fetchCategories, handleSearchName, currentPage]);
 
     return (
         <div className={cx('container')}>
