@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
                 if (userToken && userType !== 'admin') {
                     localStorage.setItem('userToken', userToken);
                     setRole('user');
-                    navigate('/user/cart');
+                    navigate('/');
                 } else {
                     localStorage.setItem('token', token);
                     setRole('admin');

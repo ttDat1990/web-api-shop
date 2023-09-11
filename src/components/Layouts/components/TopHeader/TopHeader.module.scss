@@ -1,6 +1,6 @@
 .wrapper {
     height: 42px;
-    border-bottom: 1px solid #e9e9e9;
+    border-bottom: 1px solid var(--border);
     color: #545454;
     font-size: 1.2rem;
     --primary-color: #059473;
@@ -34,7 +34,7 @@
     align-items: center;
 
     .contact-email {
-        border-left: 1px solid #e9e9e9;
+        border-left: 1px solid var(--border);
         display: flex;
         align-items: center;
 
@@ -44,8 +44,8 @@
     }
 
     .contact-phone {
-        border-left: 1px solid #e9e9e9;
-        border-right: 1px solid #e9e9e9;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
         display: flex;
         align-items: center;
 
@@ -61,12 +61,12 @@
     align-items: center;
 
     .welcome {
-        border-left: 1px solid #e9e9e9;
+        border-left: 1px solid var(--border);
     }
 
     .languages {
         cursor: pointer;
-        border-left: 1px solid #e9e9e9;
+        border-left: 1px solid var(--border);
 
         &:hover {
             color: var(--primary-color);
@@ -80,8 +80,8 @@
 
     .money-unit {
         cursor: pointer;
-        border-left: 1px solid #e9e9e9;
-        border-right: 1px solid #e9e9e9;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
 
         &:hover {
             color: var(--primary-color);
@@ -97,7 +97,7 @@
 .dropdown-item {
     width: 100%;
     height: 40px;
-    border-bottom: 1px solid #e9e9e9 !important;
+    border-bottom: 1px solid var(--border) !important;
     display: flex;
     align-items: center;
     justify-content: center;
