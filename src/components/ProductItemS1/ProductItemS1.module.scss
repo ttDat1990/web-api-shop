@@ -1,6 +1,6 @@
 .wrapper-card {
-    width: 19%;
-    height: 100%;
+    width: 220px;
+    height: 418px;
     text-decoration: none;
     padding: 10px;
 }
@@ -8,10 +8,7 @@
 .wrapper-link {
     width: 100%;
     height: 300px;
-
-    &:hover {
-        color: var(--primary-hover-color);
-    }
+    text-decoration: none;
 
     &:hover .product-image img {
         transform: scale(1.1);
@@ -24,8 +21,8 @@
     }
 
     .product-image {
-        width: 100%;
-        height: 65%;
+        max-width: 100%;
+        height: auto;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -43,18 +40,28 @@
 
     .product-category {
         font-size: 1.2rem;
-        color: var(text-color-1);
+        color: var(--text-color-1);
         height: 22.4px;
         width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .product-name {
         font-size: 1.5rem;
-        color: var(text-color-2);
+        color: var(--text-color-2);
         height: 21px;
         width: 100%;
         font-weight: 500;
         margin-bottom: 6.5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    &:hover .product-name {
+        color: var(--primary-color);
     }
 
 }
@@ -88,6 +95,8 @@
             font-weight: 500;
             padding: 9px 8px;
             margin-right: 10px;
+            border: none;
+            outline: none;
 
             &:hover {
                 background-color: var(--primary-hover-color);

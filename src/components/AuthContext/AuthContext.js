@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUrl, logoutUrl, registerUrl, adminLoginUrl } from '~/components/ApiUrl';
+import { loginUrl, logoutUrl, registerUrl, adminLoginUrl, adminLogoutUrl } from '~/components/ApiUrl';
 
 const AuthContext = createContext();
 
@@ -55,16 +55,30 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            const response = await axios.post(`${logoutUrl}`, null, {
+            let tokenName = '';
+            let currentLogoutUrl = '';
+            let redirectPath = '';
+
+            if (role === 'admin') {
+                tokenName = 'token'; // Sử dụng token của admin
+                currentLogoutUrl = adminLogoutUrl; // Sử dụng URL đăng xuất của admin
+                redirectPath = '/admin/login'; // Chuyển hướng admin đến '/admin/login'
+            } else {
+                tokenName = 'userToken'; // Sử dụng token của người dùng
+                currentLogoutUrl = logoutUrl; // Sử dụng URL đăng xuất của người dùng
+                redirectPath = '/'; // Chuyển hướng người dùng thông thường đến '/'
+            }
+
+            const response = await axios.post(currentLogoutUrl, null, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+                    Authorization: `Bearer ${localStorage.getItem(tokenName)}`,
                 },
             });
 
             if (response.status === 200) {
                 setIsLoggedIn(false);
-                localStorage.removeItem('userToken');
-                navigate('/');
+                localStorage.removeItem(tokenName);
+                navigate(redirectPath); // Chuyển hướng đến đúng địa chỉ sau khi đăng xuất
             }
         } catch (error) {
             console.error(error);

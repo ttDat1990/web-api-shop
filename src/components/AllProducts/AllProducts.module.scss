@@ -1,7 +1,7 @@
 .wrapper {
     width: 100%;
-    height: 418px;
     background-color: var(--white-color);
+    padding-top: 35px;
 }
 
 
@@ -11,12 +11,170 @@
     max-width: 100%;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
+}
 
-    a {
-        text-decoration: none;
-        color: var(--black-color);
+//css filters
+.filters {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+
+    input {
+        width: 100%;
+        font-size: 1.6rem;
+        outline: none;
+        border: 1px solid #e9e9e9;
+        height: 40px;
+        padding: 20px 10px;
+        color: var(--primary-admin-color);
+        margin-bottom: 35px;
+    }
+
+    select {
+        width: 100%;
+        height: 42px;
+        padding: 0 10px;
+        border: 1px solid #e9e9e9;
+        background-color: var(--white-color);
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: var(--primary-admin-color);
+        outline: none;
+        cursor: pointer;
+        margin-bottom: 35px;
+
+        /* Biểu tượng con trỏ khi di chuột vào */
+        option {
+            height: 42px;
+            font-weight: 500;
+            font-size: 1.4rem;
+            color: var(--text-color-1);
+
+            &:hover {
+                background-color: var(--primary-color);
+            }
+        }
+
+        /* CSS cho option được chọn */
+        option:checked {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            /* Màu nền khi option được chọn */
+        }
+    }
+
+}
+
+.filters-wrapper {
+    flex: 0 0 25%;
+    width: 25%;
+}
+
+
+.filters-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: var(--text-color-2);
+}
+
+.price-filter {
+    div {
+        display: flex;
+        justify-content: flex-start;
+
+        label {
+            font-size: 1.4rem;
+            padding-left: 10px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        input {
+            height: 20px;
+            width: 20px;
+            margin-bottom: 16px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.price-filter input[type="checkbox"]:checked+label {
+    color: var(--primary-color);
+    /* Màu chữ khi checkbox được checked */
+}
+
+//css content
+.content {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+
+    button {
+        outline: none;
+        border: none;
+        padding: 5px 10px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        border: 1px solid #e9e9e9;
+        color: var(--primary-color);
+        background-color: var(--white-color);
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        margin: 5px 5px;
+    }
+
+    button:disabled {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        cursor: default;
+    }
+}
+
+.error {
+    font-size: 1.8rem;
+    color: red;
+    font-weight: 500;
+}
+
+/* Loading Animation */
+.loading-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loading {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--primary-color);
+    border-top: 5px solid var(--white-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }

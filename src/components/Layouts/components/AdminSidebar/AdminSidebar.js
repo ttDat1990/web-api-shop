@@ -2,11 +2,22 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './AdminSidebar.module.scss';
 import { Link } from 'react-router-dom';
+import { useAuth } from '~/components/AuthContext/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faBox,
+    faHouse,
+    faRectangleList,
+    faSignOutAlt,
+    faSquarePlus,
+    faTable,
+} from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 const AdminSidebar = () => {
     const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+    const { logout } = useAuth();
 
     const toggleDropdown = (index) => {
         setOpenDropdownIndex(index === openDropdownIndex ? null : index);
@@ -16,33 +27,53 @@ const AdminSidebar = () => {
         <div className={cx('sidebar')}>
             <div className={cx('sidebar-item')}>
                 <Link to={'/admin/home'} className={cx('item-title')}>
-                    Home
+                    <FontAwesomeIcon icon={faHouse} />
+                    <span> Home</span>
                 </Link>
             </div>
             <div className={cx('sidebar-item')}>
                 <div className={cx('item-title')} onClick={() => toggleDropdown(1)}>
-                    Product
+                    <FontAwesomeIcon icon={faTable} />
+                    <span>Product</span>
                 </div>
                 {openDropdownIndex === 1 && (
                     <div className={cx('dropdown-content')}>
-                        <Link to={'/admin/addProduct'}>Add new Product</Link>
-                        <Link to={'/admin/listProduct'}>List of Products</Link>
+                        <Link to={'/admin/addProduct'}>
+                            <FontAwesomeIcon icon={faSquarePlus} />
+                            <span>Add new Product</span>
+                        </Link>
+                        <Link to={'/admin/listProduct'}>
+                            <FontAwesomeIcon icon={faRectangleList} />
+                            <span>List of Products</span>
+                        </Link>
                     </div>
                 )}
             </div>
             <div className={cx('sidebar-item')}>
                 <div className={cx('item-title')} onClick={() => toggleDropdown(2)}>
-                    Category
+                    <FontAwesomeIcon icon={faBox} />
+                    <span>Category</span>
                 </div>
                 {openDropdownIndex === 2 && (
                     <div className={cx('dropdown-content')}>
-                        <a href="/">Add new Category</a>
-                        <a href="/">List of Category</a>
+                        <a href="/">
+                            <FontAwesomeIcon icon={faSquarePlus} />
+                            <span>Add new Category</span>
+                        </a>
+                        <a href="/">
+                            <FontAwesomeIcon icon={faRectangleList} />
+                            <span>List of Category</span>
+                        </a>
                     </div>
                 )}
             </div>
-            <div className={cx('sidebar-item')}>
-                <div className={cx('item-title')}>Another Item</div>
+            <div className={cx('sidebar-item')} onClick={logout}>
+                <div className={cx('item-title')}>
+                    <>
+                        <FontAwesomeIcon icon={faSignOutAlt} />
+                    </>
+                    <span>Log out</span>
+                </div>
             </div>
         </div>
     );

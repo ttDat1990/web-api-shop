@@ -10,7 +10,13 @@ function Home() {
             <Slider apiUrl={getAllSlides} />
             <AllCategories apiUrl={getAllCategories} />
             <Title>Deals of The Day</Title>
-            <AllProducts apiUrl={getAllProducts} limit={5} />
+            <AllProducts
+                apiUrl={getAllProducts}
+                cateUrl={getAllCategories}
+                allProducts={true}
+                limit={5}
+                filter={false}
+            />
         </div>
     );
 }

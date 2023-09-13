@@ -17,6 +17,7 @@ const AdminProductsAdd = () => {
     const [categories, setCategories] = useState([]);
     const [showToast, setShowToast] = useState(false);
     const [fadeState, setFadeState] = useState('none');
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         axios
@@ -35,7 +36,11 @@ const AdminProductsAdd = () => {
     };
 
     const handleImageChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
+        if (e.target.files[0]) {
+            const image = e.target.files[0];
+            setFormData({ ...formData, image });
+            setSelectedImage(URL.createObjectURL(image)); // Tạo URL cho hình ảnh được chọn
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -111,29 +116,39 @@ const AdminProductsAdd = () => {
                     />
                 </div>
 
-                <div className={cx('price')}>
-                    <label htmlFor="price">Price</label>
-                    <input
-                        type="number"
-                        id="price"
-                        name="price"
-                        value={formData.price}
-                        onChange={handleInputChange}
-                        placeholder="Price of Product"
-                    />
-                </div>
-                <div className={cx('category')}>
-                    <label htmlFor="category">Category</label>
-                    <select id="category" name="category_id" value={formData.category_id} onChange={handleInputChange}>
-                        <option value="">Select a category</option>
-                        {categoryOptions}
-                    </select>
-                </div>
+                <div className={cx('cate-img-container')}>
+                    <div>
+                        <div className={cx('price')}>
+                            <label htmlFor="price">Price</label>
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                value={formData.price}
+                                onChange={handleInputChange}
+                                placeholder="Price of Product"
+                            />
+                        </div>
+                        <div className={cx('category')}>
+                            <label htmlFor="category">Category</label>
+                            <select
+                                id="category"
+                                name="category_id"
+                                value={formData.category_id}
+                                onChange={handleInputChange}
+                            >
+                                <option value="">Select a category</option>
+                                {categoryOptions}
+                            </select>
+                        </div>
 
-                <div className={cx('image')}>
-                    <div>Image</div>
-                    <label htmlFor="image">Choose Product Image</label>
-                    <input type="file" accept="image/*" id="image" name="image" onChange={handleImageChange} />
+                        <div className={cx('image')}>
+                            <div>Image</div>
+                            <label htmlFor="image">Choose Image</label>
+                            <input type="file" accept="image/*" id="image" name="image" onChange={handleImageChange} />
+                        </div>
+                    </div>
+                    {selectedImage && <img src={selectedImage} alt={formData.name} width="100" />}
                 </div>
 
                 <button type="submit">Submit</button>

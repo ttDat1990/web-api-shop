@@ -24,12 +24,20 @@
     &:hover {
         color: #f4f6f8;
     }
+
+    span {
+        padding-left: 10px;
+    }
 }
 
 .dropdown-content {
     display: block;
     background-color: #212b36;
     padding: 10px;
+
+    span {
+        padding-left: 10px;
+    }
 
 }
 

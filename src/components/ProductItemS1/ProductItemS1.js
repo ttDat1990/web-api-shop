@@ -17,7 +17,6 @@ function ProductItemS1({ productId, imageUrl, name, categoryName, price, onClick
             quantity: 1, // Bạn có thể đặt số lượng mặc định là 1
         };
         onClickAddToCart(product);
-        console.log(product);
     };
 
     return (

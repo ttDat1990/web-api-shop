@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import classNames from 'classnames/bind';
+import { useNavigate } from 'react-router-dom';
 import { adminDeleteProducts, getAllProductsPaginate, getAllCategories } from '~/components/ApiUrl';
 import styles from './AdminProductsList.module.scss';
 
@@ -17,6 +18,7 @@ const AdminProductsList = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    const navigate = useNavigate();
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
@@ -57,6 +59,10 @@ const AdminProductsList = () => {
         }
     };
 
+    const handleUpdateProduct = (product) => {
+        navigate(`/admin/update/${product.id}`);
+    };
+
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
@@ -88,16 +94,6 @@ const AdminProductsList = () => {
         setCurrentPage(1);
     };
 
-    const handleUpdateProduct = async (productId) => {
-        try {
-            // Placeholder for update logic
-            console.log(`Update product with ID ${productId}`);
-        } catch (error) {
-            console.error(error);
-            // Handle the error and provide user feedback if needed.
-        }
-    };
-
     return (
         <div className={cx('container')}>
             <div className={cx('title')}>List of All Products</div>
@@ -121,12 +117,12 @@ const AdminProductsList = () => {
                     <table className={cx('table')}>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Image</th>
-                                <th>Actions</th>
+                                <th className={cx('name-column')}>Name</th>
+                                <th className={cx('des-column')}>Description</th>
+                                <th className={cx('price-column')}>Price</th>
+                                <th className={cx('cate-column')}>Category</th>
+                                <th className={cx('img-column')}>Image</th>
+                                <th className={cx('action-column')}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -139,9 +135,9 @@ const AdminProductsList = () => {
                                     <td>
                                         <img src={product.image_url} alt={product.name} width="100" />
                                     </td>
-                                    <td>
-                                        <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
-                                        <button onClick={() => handleUpdateProduct(product.id)}>Update</button>
+                                    <td className={cx('action-container')}>
+                                        <div onClick={() => handleDeleteProduct(product.id)}>Delete</div>
+                                        <div onClick={() => handleUpdateProduct(product)}>Update</div>
                                     </td>
                                 </tr>
                             ))}

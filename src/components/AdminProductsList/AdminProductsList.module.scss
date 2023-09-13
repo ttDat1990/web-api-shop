@@ -84,9 +84,7 @@
         width: auto;
     }
 
-    button {
-        outline: none;
-        border: none;
+    div {
         padding: 5px 10px;
         font-size: 1.5rem;
         font-weight: 500;
@@ -94,7 +92,7 @@
         color: var(--white-color);
         background-color: var(--primary-admin-color);
         cursor: pointer;
-        margin: 0 5px;
+        margin: 10px 20px;
         transition: background-color 0.3s ease-in-out;
 
         &:hover {
@@ -103,6 +101,29 @@
 
     }
 }
+
+.action-container {}
+
+.name-column {
+    width: 15%;
+}
+
+.price-column {
+    width: 7%;
+}
+
+.cate-column {
+    width: 10%;
+}
+
+.img-column {
+    width: 10%;
+}
+
+.action-column {
+    width: 10%;
+}
+
 
 .pagination-nav {
     width: 1200px;

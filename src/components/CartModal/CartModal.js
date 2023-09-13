@@ -1,9 +1,35 @@
 import classNames from 'classnames/bind';
 import styles from './CartModal.module.scss';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart, updateCartItemQuantity } from '~/reducers/cartSlice';
 
 const cx = classNames.bind(styles);
 
-function CartModal({ cartItems, onCloseModal, onRemoveItem, onUpdateQuantity }) {
+function CartModal({ onCloseModal }) {
+    const cartItems = useSelector((state) => state.cart.cartItems);
+    const dispatch = useDispatch();
+
+    const removeFromCartHandler = (productId) => {
+        dispatch(removeFromCart(productId)); // Gửi action removeFromCart để xóa sản phẩm khỏi giỏ hàng
+    };
+
+    const updateQuantityHandler = (productId, action) => {
+        const cartItem = cartItems.find((item) => item.id === productId);
+
+        if (cartItem) {
+            let newQuantity = cartItem.quantity;
+            if (action === 'decrement' && newQuantity > 1) {
+                newQuantity -= 1;
+            } else if (action === 'increment') {
+                newQuantity += 1;
+            } else if (action === 'decrement' && newQuantity === 1) {
+                dispatch(removeFromCart(productId));
+            }
+
+            dispatch(updateCartItemQuantity({ productId, quantity: newQuantity })); // Gửi action updateCartItemQuantity để cập nhật số lượng sản phẩm trong giỏ hàng
+        }
+    };
     const handleTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     };
@@ -24,10 +50,10 @@ function CartModal({ cartItems, onCloseModal, onRemoveItem, onUpdateQuantity }) 
                                 <div className={cx('item-name')}>{item.name}</div>
 
                                 <div className={cx('item-actions')}>
-                                    <button onClick={() => onUpdateQuantity(item.id, 'decrement')}>-</button>
+                                    <button onClick={() => updateQuantityHandler(item.id, 'decrement')}>-</button>
                                     <div className={cx('item-quantity')}>{item.quantity}</div>
-                                    <button onClick={() => onUpdateQuantity(item.id, 'increment')}>+</button>
-                                    <span className={cx('remove-item')} onClick={() => onRemoveItem(item.id)}>
+                                    <button onClick={() => updateQuantityHandler(item.id, 'increment')}>+</button>
+                                    <span className={cx('remove-item')} onClick={() => removeFromCartHandler(item.id)}>
                                         &times;
                                     </span>
                                 </div>

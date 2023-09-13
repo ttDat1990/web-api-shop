@@ -9,6 +9,7 @@ import UserLogin from '~/pages/UserLogin';
 import AdminProductAdd from '~/pages/AdminProductAdd/AdminProductAdd';
 import AdminProductList from '~/pages/AdminProductList/AdminProductList';
 import ProductsByCategory from '~/components/ProductsByCategory';
+import AdminProductUpdatePage from '~/pages/AdminProductUpdatePage';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -24,6 +25,7 @@ const adminRoutes = [
     { path: '/home', component: Admin },
     { path: '/addProduct', component: AdminProductAdd },
     { path: '/listProduct', component: AdminProductList },
+    { path: '/update/:id', component: AdminProductUpdatePage },
 ];
 
 const userRoutes = [{ path: '/cart', component: Cart }];

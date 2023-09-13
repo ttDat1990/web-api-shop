@@ -8,7 +8,7 @@ import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faOpencart } from '@fortawesome/free-brands-svg-icons';
 import { faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '~/components/AuthContext/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import CartModal from '~/components/CartModal';
 
 const cx = classNames.bind(styles);
 
@@ -17,9 +17,9 @@ function MidHeader() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
     const { isLoggedIn, login, logout } = useAuth();
-    const navigate = useNavigate();
 
     const toggleModal = () => {
         setShowModal(!showModal);
@@ -38,14 +38,6 @@ function MidHeader() {
             }
         } catch (err) {
             // Xử lý lỗi đăng nhập
-        }
-    };
-
-    const handleCartClick = () => {
-        if (isLoggedIn) {
-            navigate('/user/cart');
-        } else {
-            toggleModal();
         }
     };
 
@@ -121,10 +113,11 @@ function MidHeader() {
                         <FontAwesomeIcon icon={faHeart} />
                         <span>Wishlist</span>
                     </a>
-                    <div onClick={handleCartClick} className={cx('menu-cart')}>
+                    <div onClick={() => setIsCartModalOpen(true)} className={cx('menu-cart')}>
                         <FontAwesomeIcon icon={faOpencart} />
                         <span>Cart</span>
                     </div>
+                    {isCartModalOpen && <CartModal onCloseModal={() => setIsCartModalOpen(false)} />}
                 </div>
             </div>
         </div>
