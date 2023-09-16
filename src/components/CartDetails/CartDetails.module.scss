@@ -1,0 +1,161 @@
+.container {
+    width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    padding: 35px 0px;
+    color: var(--text-color-2);
+}
+
+.cart-container {
+    width: 67%;
+    padding: 0 10px;
+}
+
+.cart-table {
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--border);
+    border-collapse: collapse;
+}
+
+.cart-item {
+    width: 100%;
+}
+
+.cart-table th {
+    padding: 9px 12px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+}
+
+.cart-table td {
+    padding: 8px 12px;
+    font-size: 1.6rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.item-image {
+    width: 80px;
+    height: 95px;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.item-name {
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.item-price {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.item-actions {
+    display: flex;
+    margin: 5px 0;
+}
+
+.item-actions button {
+    height: 35px;
+    padding: 5px;
+    text-align: center;
+    width: 30px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    background-color: var(--white-color);
+    font-size: 2rem;
+    line-height: 1rem;
+}
+
+.item-actions button:hover {
+    background-color: var(--primary-color);
+}
+
+.item-quantity {
+    font-weight: 500;
+    height: 35px;
+    padding: 5px;
+    text-align: center;
+    width: 40px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    font-size: 1.4rem;
+    line-height: 2.5rem;
+}
+
+.remove-item {
+    font-size: 2.1rem;
+    color: #000;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.cart-total {
+    width: 33%;
+    padding: 0 10px;
+}
+
+.check-out {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-collapse: collapse;
+}
+
+.title {
+    font-size: 2.2rem;
+    margin: 0 0 10px;
+    font-weight: 600;
+    color: var(--text-color-3);
+}
+
+.subtotal,
+.discount,
+.total {
+    padding: 9px 12px;
+    display: flex;
+    font-weight: 600;
+    width: 100%;
+
+    span {
+        font-size: 1.6rem;
+        color: var(--primary-color);
+    }
+
+    div {
+        font-size: 1.4rem;
+        width: 50%;
+        color: var(--text-color-1);
+    }
+}
+
+.checkout-button {
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--secondary-hover-color);
+    }
+}
+
+.discount {
+    border-bottom: 1px solid var(--border);
+}

@@ -3,6 +3,7 @@ import styles from './CartModal.module.scss';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, updateCartItemQuantity } from '~/reducers/cartSlice';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,7 @@ function CartModal({ onCloseModal }) {
     const handleTotalPrice = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     };
+
     return (
         <div className={cx('overlay')} onClick={onCloseModal}>
             <div className={cx('cart-modal')} onClick={(e) => e.stopPropagation()}>
@@ -70,7 +72,12 @@ function CartModal({ onCloseModal }) {
                     <div>Subtotal Price:</div>
                     <span>$ {handleTotalPrice()}</span>
                 </div>
-                <button>Checkout</button>
+                <Link to={'/user/cart'} className={cx('cart-button')}>
+                    View Cart
+                </Link>
+                <Link to={'/user/checkout'} className={cx('checkout-button')}>
+                    Checkout
+                </Link>
             </div>
         </div>
     );

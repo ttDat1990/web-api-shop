@@ -9,37 +9,14 @@ import { faOpencart } from '@fortawesome/free-brands-svg-icons';
 import { faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '~/components/AuthContext/AuthContext';
 import CartModal from '~/components/CartModal';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function MidHeader() {
-    const [showModal, setShowModal] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
-    const { isLoggedIn, login, logout } = useAuth();
-
-    const toggleModal = () => {
-        setShowModal(!showModal);
-    };
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        try {
-            const loginSuccessful = await login(email, password, 'user');
-
-            if (!loginSuccessful) {
-                setError('Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập.');
-            } else {
-                setShowModal(false);
-            }
-        } catch (err) {
-            // Xử lý lỗi đăng nhập
-        }
-    };
+    const { isLoggedIn, logout } = useAuth();
 
     return (
         <div className={cx('wrapper')}>
@@ -60,55 +37,12 @@ function MidHeader() {
                             <span>Logout</span>
                         </div>
                     ) : (
-                        <div onClick={isLoggedIn ? logout : toggleModal} className={cx('menu-account')}>
+                        <Link to={'/user/login'} className={cx('menu-account')}>
                             <FontAwesomeIcon icon={faUser} />
                             <span>Login</span>
-                        </div>
+                        </Link>
                     )}
-                    {showModal && (
-                        <div className={cx('modal')}>
-                            <div className={cx('modal-content')}>
-                                <span className={cx('close')} onClick={toggleModal}>
-                                    &times;
-                                </span>
-                                <div className={cx('login-modal-container')}>
-                                    <div className={cx('modal-title')}>
-                                        <h4>Login</h4>
-                                        <span>Get access to your</span>
-                                        <span>Orders, Wishlist and</span>
-                                        <span>Recommendations.</span>
-                                    </div>
-                                    <form onSubmit={handleLogin} className={cx('modal-input')}>
-                                        <input
-                                            type="text"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                            placeholder="Enter Username/Email address"
-                                            autoComplete="username"
-                                        />
-                                        <input
-                                            type="password"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            required
-                                            placeholder="Enter Password"
-                                            autoComplete="current-password"
-                                        />
-                                        <div className={cx('login-tip')}>
-                                            <div>
-                                                <input type="checkbox" name="remember" />
-                                                <label htmlFor="remember"> Remember me</label>
-                                            </div>
-                                            <a href="/">Lost your password?</a>
-                                        </div>
-                                        {error && <span className={cx('error')}>{error}</span>}
-                                        <button type="submit">Log in</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+
                     <a href="/" className={cx('menu-wishlist')}>
                         <FontAwesomeIcon icon={faHeart} />
                         <span>Wishlist</span>
