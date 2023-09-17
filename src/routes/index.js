@@ -12,6 +12,7 @@ import ProductsByCategory from '~/components/ProductsByCategory';
 import AdminProductUpdatePage from '~/pages/AdminProductUpdatePage';
 import CheckOut from '~/pages/CheckOut';
 import Register from '~/pages/Register';
+import AdminCategoryList from '~/pages/AdminCategoryList';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -28,6 +29,7 @@ const adminRoutes = [
     { path: '/home', component: Admin },
     { path: '/addProduct', component: AdminProductAdd },
     { path: '/listProduct', component: AdminProductList },
+    { path: '/listCategory', component: AdminCategoryList },
     { path: '/update/:id', component: AdminProductUpdatePage },
 ];
 

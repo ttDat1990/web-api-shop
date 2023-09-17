@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [role, setRole] = useState();
+    const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,11 +33,12 @@ export const AuthProvider = ({ children }) => {
             });
 
             if (response.status === 200) {
-                const { userToken, token } = response.data;
+                const { userToken, token, user_id } = response.data;
 
                 if (userToken && userType !== 'admin') {
                     localStorage.setItem('userToken', userToken);
                     setRole('user');
+                    setUserId(user_id);
                     navigate('/');
                 } else {
                     localStorage.setItem('token', token);
@@ -105,7 +107,9 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, role, login, logout, register }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ isLoggedIn, role, userId, login, logout, register }}>
+            {children}
+        </AuthContext.Provider>
     );
 };
 

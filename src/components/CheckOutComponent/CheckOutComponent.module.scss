@@ -1,0 +1,218 @@
+.container {
+    width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    padding: 35px 0px;
+    color: var(--text-color-2);
+}
+
+.customer-info {
+    width: 58%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+
+    div {
+        font-size: 2.4rem;
+        font-weight: 600;
+        margin: 0 0 16px;
+    }
+
+    ::placeholder {
+        font-size: 1.5rem;
+        color: black;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+        outline: none;
+        border: 1px solid #e9e9e9;
+        height: 42px;
+        padding-left: 1.7rem;
+
+    }
+
+    label {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-color-2);
+        margin: 0 0 7px;
+    }
+
+}
+
+.order-detail {
+    width: 42%;
+    padding: 0 10px;
+    border: 1px solid var(--border);
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--text-color-3);
+    border-bottom: 1px solid var(--border);
+
+    span {
+        font-size: 4rem;
+        line-height: 2rem;
+        cursor: pointer;
+    }
+}
+
+.cart-header div {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+
+.cart-item {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 15px 15px;
+    position: relative;
+}
+
+.item-image {
+    max-width: 15%;
+    height: auto;
+    margin-right: 15px;
+
+    img {
+        width: 100%;
+    }
+
+}
+
+.item-name {
+    font-size: 1.4rem;
+    color: var(--text-color-1);
+    font-weight: 600;
+}
+
+.item-info {
+    font-size: 1.4rem;
+    width: 197px;
+    padding: 8px 12px;
+}
+
+.item-price {
+    padding: 8px 12px;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.item-actions {
+    display: flex;
+    margin: 5px 0;
+}
+
+.item-actions button {
+    height: 35px;
+    padding: 5px;
+    text-align: center;
+    width: 30px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    background-color: var(--white-color);
+    font-size: 2rem;
+    line-height: 1rem;
+}
+
+.item-actions button:hover {
+    background-color: var(--primary-color);
+}
+
+.item-quantity {
+    font-weight: 500;
+    height: 35px;
+    padding: 5px;
+    text-align: center;
+    width: 40px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    font-size: 1.4rem;
+    line-height: 2.5rem;
+}
+
+.remove-item {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #000;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button.Close:hover {
+    background-color: #999;
+}
+
+.subtotal,
+.discount,
+.total {
+    display: flex;
+    padding: 9px 12px;
+
+    div {
+        font-size: 1.4rem;
+        color: var(--text-color-1);
+        font-weight: 600;
+        width: 295px;
+    }
+
+    span {
+        font-size: 1.6rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+}
+
+.discount,
+.total {
+    border-bottom: 1px solid var(--border);
+}
+
+.order {
+    padding: 14px;
+    margin: 0 0 14px;
+
+    div {
+        margin: 0 0 21px;
+        font-size: 1.4rem;
+        line-height: 2.5rem;
+        color: var(--text-color-1);
+    }
+
+    button {
+        border: none;
+        outline: none;
+        background-color: var(--secondary-color);
+        color: var(--white-color);
+        font-weight: 600;
+        line-height: 1.2;
+        text-decoration: none;
+        text-align: center;
+        padding: 12px 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--secondary-hover-color);
+        }
+    }
+}

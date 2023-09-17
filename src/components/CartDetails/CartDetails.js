@@ -10,7 +10,6 @@ const cx = classNames.bind(styles);
 function CartDetails() {
     const cartItems = useSelector((state) => state.cart.cartItems);
     const dispatch = useDispatch();
-
     const removeFromCartHandler = (productId) => {
         dispatch(removeFromCart(productId));
     };
@@ -32,7 +31,8 @@ function CartDetails() {
         }
     };
     const handleTotalPrice = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        return totalPrice.toFixed(2);
     };
 
     return (

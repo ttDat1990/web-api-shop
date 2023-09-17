@@ -1,5 +1,7 @@
+import CheckOutComponent from '~/components/CheckOutComponent';
+
 function CheckOut() {
-    return <h2>CheckOut page</h2>;
+    return <CheckOutComponent />;
 }
 
 export default CheckOut;

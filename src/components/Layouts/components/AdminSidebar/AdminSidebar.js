@@ -60,10 +60,10 @@ const AdminSidebar = () => {
                             <FontAwesomeIcon icon={faSquarePlus} />
                             <span>Add new Category</span>
                         </a>
-                        <a href="/">
+                        <Link to={'/admin/listCategory'}>
                             <FontAwesomeIcon icon={faRectangleList} />
                             <span>List of Category</span>
-                        </a>
+                        </Link>
                     </div>
                 )}
             </div>

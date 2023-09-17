@@ -17,6 +17,9 @@ const loginUrl = 'http://127.0.0.1:8000/api/login';
 const logoutUrl = 'http://127.0.0.1:8000/api/logout';
 const registerUrl = 'http://127.0.0.1:8000/api/register';
 
+const orderUrl = 'http://127.0.0.1:8000/api/orders';
+const orderDetailsUrl = 'http://127.0.0.1:8000/api/order_details';
+
 export {
     getAllProducts,
     getAllCategories,
@@ -33,4 +36,6 @@ export {
     registerUrl,
     adminLogoutUrl,
     getAllProductsPaginate,
+    orderUrl,
+    orderDetailsUrl,
 };
